@@ -1,6 +1,9 @@
 #-----------------------------------------------------------------------------------------
 # Scurve.py
-# Smoothly move to a target with limits on velocity and acceleration
+#
+# Smoothly move to a target with limits on velocity and acceleration.
+# Ok to change target at any time.
+# Do not change max velocity or max acceleration when running, that makes a discontinuity
 #
 # DrTomFlint 19 Sept 2023
 #-----------------------------------------------------------------------------------------
@@ -35,8 +38,8 @@ class Scurve:
                         self.v=self.vmax
                 else:
                     # correct direction, check if within stopping distance
-                    self.stop=self.v*self.v/(2*self.amax)+2*self.v
-                    #self.stop*=1.05
+                    self.stop=self.v*self.v/(2*self.amax)+1*self.v
+                    self.stop*=1.05
                     if self.delta<self.stop:
                         # within stopping distance, slow down
                         self.v-=self.amax
@@ -54,7 +57,7 @@ class Scurve:
                         self.v=-self.vmax
                 else:
                     # correct direction, check if within stopping distance
-                    self.stop=-(self.v*self.v/(2*self.amax)+self.v)
+                    self.stop=-(self.v*self.v/(2*self.amax)+1*self.v)
                     self.stop*=1.05
                     if self.delta>self.stop:
                         # within stopping distance, slow down
